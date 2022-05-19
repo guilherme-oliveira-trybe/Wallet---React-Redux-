@@ -17,7 +17,7 @@ const walletReduce = (state = INITIAL_STATE, action) => {
   case GET_EXPENSES:
     return {
       ...state,
-      expenses: [...action.expenses],
+      expenses: [...state.expenses, action.expenses],
     };
   default:
     return state;

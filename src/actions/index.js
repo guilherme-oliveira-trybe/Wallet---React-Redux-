@@ -26,3 +26,11 @@ export const fetchCurrenciesThunk = () => async (dispatch) => {
   const currencies = newData.map(({ code }) => code);
   dispatch(getCurrencies(currencies));
 };
+
+export const fetchExchangeThunk = (state) => async (dispatch) => {
+  const apiCurrencies = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const data = await apiCurrencies.json();
+  delete data.USDT;
+  state.exchangeRates = data;
+  dispatch(getExpenses(state));
+};
