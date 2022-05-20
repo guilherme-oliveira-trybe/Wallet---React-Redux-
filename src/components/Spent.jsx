@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { deleteSpent } from '../actions';
 
 class Spent extends Component {
+  onClick = (id) => {
+    const { expenses, dispatch } = this.props;
+    const newExpenses = expenses.filter((exp) => exp.id !== id);
+    dispatch(deleteSpent(newExpenses));
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -24,14 +31,24 @@ class Spent extends Component {
           {expenses.map(
             ({ id, description, tag, method, value, currency, exchangeRates }) => (
               <tr key={ id }>
-                <td>{ description }</td>
-                <td>{ tag }</td>
+                <td>{description}</td>
+                <td>{tag}</td>
                 <td>{method}</td>
-                <td>{ Number(value).toFixed(2) }</td>
-                <td>{ exchangeRates[currency].name }</td>
+                <td>{Number(value).toFixed(2)}</td>
+                <td>{exchangeRates[currency].name}</td>
                 <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>{ Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>{Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
                 <td> Real </td>
+                <td>
+                  <button
+                    data-testid="delete-btn"
+                    type="button"
+                    onClick={ () => this.onClick(id) }
+                  >
+                    Excluir
+
+                  </button>
+                </td>
               </tr>
             ),
           )}
