@@ -29,20 +29,14 @@ class Form extends Component {
     const { state } = this;
     const { dispatch } = this.props;
     dispatch(fetchExchangeThunk(state));
-    this.updateId();
-    this.clearValue();
+    this.updateStatus();
   }
 
-  updateId = () => {
+  updateStatus = () => {
     this.setState(({ id }) => ({
       id: id + 1,
-    }));
-  }
-
-  clearValue = () => {
-    this.setState({
       value: '',
-    });
+    }));
   }
 
   render() {
