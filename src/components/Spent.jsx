@@ -21,45 +21,20 @@ class Spent extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((spent) => (
-            <tr key={ spent.id }>
-              <td>
-                {' '}
-                { spent.description }
-                {' '}
-              </td>
-              <td>
-                {' '}
-                { spent.tag }
-                {' '}
-              </td>
-              <td>
-                {' '}
-                {spent.method}
-                {' '}
-              </td>
-              <td>
-                {' '}
-                { Number(spent.value).toFixed(2) }
-                {' '}
-              </td>
-              <td>
-                {' '}
-                { spent.exchangeRates[spent.currency].name }
-                {' '}
-              </td>
-              <td>
-                {Number(spent.exchangeRates[spent.currency].ask).toFixed(2)}
-              </td>
-              <td>
-                {' '}
-                { Number(spent.value * spent.exchangeRates[spent.currency].ask)
-                  .toFixed(2)}
-                {' '}
-              </td>
-              <td> Real </td>
-            </tr>
-          ))}
+          {expenses.map(
+            ({ id, description, tag, method, value, currency, exchangeRates }) => (
+              <tr key={ id }>
+                <td>{ description }</td>
+                <td>{ tag }</td>
+                <td>{method}</td>
+                <td>{ Number(value).toFixed(2) }</td>
+                <td>{ exchangeRates[currency].name }</td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>{ Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
+                <td> Real </td>
+              </tr>
+            ),
+          )}
         </tbody>
       </table>
     );
