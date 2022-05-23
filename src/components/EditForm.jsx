@@ -1,9 +1,9 @@
 import propTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchExchangeThunk } from '../actions';
+import { saveChanges } from '../actions';
 
-class Form extends Component {
+class EditForm extends Component {
   constructor() {
     super();
 
@@ -18,12 +18,10 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    const { expenses } = this.props;
-    if (expenses.length > 0) {
-      this.setState({
-        id: expenses[expenses.length - 1].id + 1,
-      });
-    }
+    const { editId } = this.props;
+    this.setState({
+      id: editId,
+    });
   }
 
   changeHandler = ({ target }) => {
@@ -34,34 +32,34 @@ class Form extends Component {
     });
   }
 
-  addSpent = async () => {
-    const { state } = this;
-    const { dispatch } = this.props;
-    dispatch(fetchExchangeThunk(state));
-    this.updateStatus();
-  }
-
-  // updateSpent = (editId) => {
+  // addSpent = async () => {
   //   const { state } = this;
-  //   const { expenses, dispatch } = this.props;
-  //   const editSpent = {
-  //     ...state,
-  //     exchangeRates: expenses[editId].exchangeRates,
-  //   };
-  //   expenses[editId] = editSpent;
-  //   dispatch(saveChanges(expenses));
+  //   const { dispatch } = this.props;
+  //   dispatch(fetchExchangeThunk(state));
+  //   this.updateStatus();
   // }
 
-  updateStatus = () => {
-    this.setState(({ id }) => ({
-      id: id + 1,
-      value: '',
-    }));
+  updateSpent = (editId) => {
+    const { state } = this;
+    const { expenses, dispatch } = this.props;
+    const editSpent = {
+      ...state,
+      exchangeRates: expenses[editId].exchangeRates,
+    };
+    expenses[editId] = editSpent;
+    dispatch(saveChanges(expenses));
   }
+
+  // updateStatus = () => {
+  //   this.setState(({ id }) => ({
+  //     id: id + 1,
+  //     value: '',
+  //   }));
+  // }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { currencies } = this.props;
+    const { currencies, editId } = this.props;
     return (
       <form>
         <label htmlFor="amount">
@@ -128,9 +126,9 @@ class Form extends Component {
         </label>
         <button
           type="button"
-          onClick={ this.addSpent }
+          onClick={ () => this.updateSpent(editId) }
         >
-          Adicionar despesa
+          Editar despesa
 
         </button>
       </form>
@@ -145,11 +143,11 @@ const mapStateToProps = (state) => ({
   editId: state.wallet.editId,
 });
 
-Form.propTypes = {
+EditForm.propTypes = {
   currencies: propTypes.arrayOf(propTypes.array),
   expenses: propTypes.arrayOf(propTypes.array),
   isEdit: propTypes.bool,
   editId: propTypes.number,
 }.isRequired;
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps)(EditForm);

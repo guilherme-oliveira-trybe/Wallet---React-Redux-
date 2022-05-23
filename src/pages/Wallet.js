@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 import Header from '../components/Header';
 import { fetchCurrenciesThunk } from '../actions';
 import Form from '../components/Form';
+import EditForm from '../components/EditForm';
 import Spent from '../components/Spent';
 
 class Wallet extends React.Component {
@@ -13,18 +14,26 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { isEdit } = this.props;
     return (
       <header>
         <Header />
-        <Form />
+        {
+          !isEdit ? <Form /> : <EditForm />
+        }
         <Spent />
       </header>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  isEdit: state.wallet.isEdit,
+});
+
 Wallet.propTypes = {
   dispatch: propTypes.func,
+  isEdit: propTypes.string,
 }.isRequired;
 
-export default connect()(Wallet);
+export default connect(mapStateToProps)(Wallet);

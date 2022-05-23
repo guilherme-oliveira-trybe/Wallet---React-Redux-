@@ -16,8 +16,8 @@ class Header extends Component {
     return (
       <div>
         <span data-testid="email-field">{ email }</span>
-        <span data-testid="total-field">{ this.updateSumTotal() }</span>
-        <span data-testid="header-currency-field">R$ BRL</span>
+        <span data-testid="total-field">{`R$ ${this.updateSumTotal()}` }</span>
+        <span data-testid="header-currency-field">BRL</span>
       </div>
     );
   }

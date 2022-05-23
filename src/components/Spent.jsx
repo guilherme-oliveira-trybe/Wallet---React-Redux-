@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { deleteSpent } from '../actions';
+import { deleteSpent, editSpent } from '../actions';
 
 class Spent extends Component {
-  onClick = (id) => {
+  spentDelete = (id) => {
     const { expenses, dispatch } = this.props;
     const newExpenses = expenses.filter((exp) => exp.id !== id);
     dispatch(deleteSpent(newExpenses));
+  }
+
+  spentEdit = (id) => {
+    const { dispatch } = this.props;
+    dispatch(editSpent(id));
   }
 
   render() {
@@ -41,9 +46,17 @@ class Spent extends Component {
                 <td> Real </td>
                 <td>
                   <button
+                    data-testid="edit-btn"
+                    type="button"
+                    onClick={ () => this.spentEdit(id) }
+                  >
+                    Editar
+
+                  </button>
+                  <button
                     data-testid="delete-btn"
                     type="button"
-                    onClick={ () => this.onClick(id) }
+                    onClick={ () => this.spentDelete(id) }
                   >
                     Excluir
 

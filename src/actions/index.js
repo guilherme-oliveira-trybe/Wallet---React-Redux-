@@ -3,6 +3,8 @@ export const CHANGE_USER = 'CHANGE_USER';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const GET_EXPENSES = 'EXPENSES';
 export const DELETE_SPENT = 'DELETE_SPENT';
+export const EDIT_SPENT = 'EDIT_SPENT';
+export const SAVE_CHANGES = 'SAVE_CHANGES';
 
 export const changeUser = (value) => ({
   type: CHANGE_USER,
@@ -21,6 +23,16 @@ export const getExpenses = (expenses) => ({
 
 export const deleteSpent = (expenses) => ({
   type: DELETE_SPENT,
+  expenses,
+});
+
+export const editSpent = (id) => ({
+  type: EDIT_SPENT,
+  id,
+});
+
+export const saveChanges = (expenses) => ({
+  type: SAVE_CHANGES,
   expenses,
 });
 
