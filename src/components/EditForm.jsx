@@ -18,9 +18,15 @@ class EditForm extends Component {
   }
 
   componentDidMount() {
-    const { editId } = this.props;
+    const { editId, expenses } = this.props;
+
     this.setState({
       id: editId,
+      value: expenses[editId].value,
+      description: expenses[editId].description,
+      currency: expenses[editId].currency,
+      method: expenses[editId].method,
+      tag: expenses[editId].tag,
     });
   }
 
@@ -31,13 +37,6 @@ class EditForm extends Component {
       [name]: value,
     });
   }
-
-  // addSpent = async () => {
-  //   const { state } = this;
-  //   const { dispatch } = this.props;
-  //   dispatch(fetchExchangeThunk(state));
-  //   this.updateStatus();
-  // }
 
   updateSpent = (editId) => {
     const { state } = this;
@@ -50,12 +49,15 @@ class EditForm extends Component {
     dispatch(saveChanges(expenses));
   }
 
-  // updateStatus = () => {
-  //   this.setState(({ id }) => ({
-  //     id: id + 1,
-  //     value: '',
-  //   }));
-  // }
+  validInputs = () => {
+    const { value, description } = this.state;
+    const MIN_LENGTH = 1;
+
+    if (value >= MIN_LENGTH && description.length >= MIN_LENGTH) {
+      return false;
+    }
+    return true;
+  }
 
   render() {
     const { value, description, currency, method, tag } = this.state;
@@ -66,6 +68,7 @@ class EditForm extends Component {
           Valor
           <input
             data-testid="value-input"
+            type="number"
             name="value"
             id="amount"
             value={ value }
@@ -126,6 +129,7 @@ class EditForm extends Component {
         </label>
         <button
           type="button"
+          disabled={ this.validInputs() }
           onClick={ () => this.updateSpent(editId) }
         >
           Editar despesa
@@ -139,14 +143,12 @@ class EditForm extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  isEdit: state.wallet.isEdit,
   editId: state.wallet.editId,
 });
 
 EditForm.propTypes = {
   currencies: propTypes.arrayOf(propTypes.array),
   expenses: propTypes.arrayOf(propTypes.array),
-  isEdit: propTypes.bool,
   editId: propTypes.number,
 }.isRequired;
 

@@ -11,9 +11,9 @@ class Form extends Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -41,22 +41,21 @@ class Form extends Component {
     this.updateStatus();
   }
 
-  // updateSpent = (editId) => {
-  //   const { state } = this;
-  //   const { expenses, dispatch } = this.props;
-  //   const editSpent = {
-  //     ...state,
-  //     exchangeRates: expenses[editId].exchangeRates,
-  //   };
-  //   expenses[editId] = editSpent;
-  //   dispatch(saveChanges(expenses));
-  // }
-
   updateStatus = () => {
     this.setState(({ id }) => ({
       id: id + 1,
       value: '',
     }));
+  }
+
+  validInputs = () => {
+    const { value, description } = this.state;
+    const MIN_LENGTH = 1;
+
+    if (value.length >= MIN_LENGTH && description.length >= MIN_LENGTH) {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -68,6 +67,7 @@ class Form extends Component {
           Valor
           <input
             data-testid="value-input"
+            type="number"
             name="value"
             id="amount"
             value={ value }
@@ -128,6 +128,7 @@ class Form extends Component {
         </label>
         <button
           type="button"
+          disabled={ this.validInputs() }
           onClick={ this.addSpent }
         >
           Adicionar despesa
@@ -141,15 +142,11 @@ class Form extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  isEdit: state.wallet.isEdit,
-  editId: state.wallet.editId,
 });
 
 Form.propTypes = {
   currencies: propTypes.arrayOf(propTypes.array),
   expenses: propTypes.arrayOf(propTypes.array),
-  isEdit: propTypes.bool,
-  editId: propTypes.number,
 }.isRequired;
 
 export default connect(mapStateToProps)(Form);
