@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { saveChanges } from '../actions';
+import styles from './EditForm.module.css';
 
 class EditForm extends Component {
   constructor() {
@@ -63,7 +64,7 @@ class EditForm extends Component {
     const { value, description, currency, method, tag } = this.state;
     const { currencies, editId } = this.props;
     return (
-      <form>
+      <form className={ styles.container }>
         <label htmlFor="amount">
           Valor
           <input

@@ -6,6 +6,7 @@ import { fetchCurrenciesThunk } from '../actions';
 import Form from '../components/Form';
 import EditForm from '../components/EditForm';
 import Spent from '../components/Spent';
+import styles from './Wallet.module.css';
 
 class Wallet extends React.Component {
   async componentDidMount() {
@@ -16,13 +17,19 @@ class Wallet extends React.Component {
   render() {
     const { isEdit } = this.props;
     return (
-      <header>
-        <Header />
-        {
-          !isEdit ? <Form /> : <EditForm />
-        }
-        <Spent />
-      </header>
+      <main className={ styles.container }>
+        <div className={ styles.contentHeader }>
+          <Header />
+        </div>
+        <div className={ styles.contentForm }>
+          {
+            !isEdit ? <Form /> : <EditForm />
+          }
+        </div>
+        <div className={ styles.contentTable }>
+          <Spent />
+        </div>
+      </main>
     );
   }
 }

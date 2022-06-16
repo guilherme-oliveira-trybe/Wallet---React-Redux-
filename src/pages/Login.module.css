@@ -1,0 +1,92 @@
+.container {
+  align-items: center;
+  background-color: #607196;
+  border-radius: 30px;
+  box-shadow: 10px 5px 5px black;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  width: 80%;
+}
+
+.container img {
+  margin-top: 80px;
+  width: 40%;
+}
+
+.container div {
+  margin-top: 50px;
+  width: 80%;
+}
+
+.container input {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px black;
+  filter: opacity(0.4);
+  height: 25px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.container button {
+  background-color: #607196;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px black;
+  color: white;
+  filter: opacity(0.9);
+  height: 25px;
+  margin-top: 70px;
+  width: 100px;
+}
+
+.container button:disabled {
+  background-color: #607196;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px black;
+  color: darkgray;
+  filter: opacity(0.9);
+  height: 25px;
+  margin-top: 70px;
+  width: 100px;
+}
+
+@media ( min-width : 600px ) {
+
+  .container {
+    width: 50%;
+  }
+
+  .container img {
+    margin-top: 50px;
+  }
+}
+
+@media ( min-width : 900px ) {
+
+  .container img {
+    margin-top: 17px;
+  }
+}
+
+@media ( min-width : 1200px ) {
+
+  .container img {
+    margin-top: 0;
+  }
+
+  .container div {
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  .container button {
+    margin-top: 30px;
+  }
+
+  .container button:disabled {
+    margin-top: 30px;
+  }
+}

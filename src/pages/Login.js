@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { changeUser } from '../actions';
+import styles from './Login.module.css';
+import walletImg from '../img/Wallet.png';
 
 class Login extends React.Component {
   constructor() {
@@ -54,10 +56,9 @@ class Login extends React.Component {
     return disable;
   }
 
-  // https://guisalmeida.com/aprendendo-regex-na-pr%C3%A1tica-validando-emails/
   validEmail = () => {
     const { emailInput } = this.state;
-    const regExp = /^\w+@[a-z]+(\.[a-z]+){1,2}$/i;
+    const regExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/i;
 
     return regExp.test(emailInput);
   }
@@ -66,23 +67,26 @@ class Login extends React.Component {
     const { emailInput, passwordInput, disable } = this.state;
     const { saveEmail } = this.props;
     return (
-      <main>
-        <input
-          data-testid="email-input"
-          type="email"
-          name="emailInput"
-          placeholder="Email"
-          value={ emailInput }
-          onChange={ this.changeHandler }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="passwordInput"
-          placeholder="Senha"
-          value={ passwordInput }
-          onChange={ this.changeHandler }
-        />
+      <main className={ styles.container }>
+        <img src={ walletImg } alt="imagem de carteira" />
+        <div>
+          <input
+            data-testid="email-input"
+            type="email"
+            name="emailInput"
+            placeholder="Email"
+            value={ emailInput }
+            onChange={ this.changeHandler }
+          />
+          <input
+            data-testid="password-input"
+            type="password"
+            name="passwordInput"
+            placeholder="Senha"
+            value={ passwordInput }
+            onChange={ this.changeHandler }
+          />
+        </div>
         <Link to="/carteira">
           <button
             type="button"
@@ -92,16 +96,11 @@ class Login extends React.Component {
             Entrar
 
           </button>
-
         </Link>
       </main>
     );
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   email: state.user.email,
-// });
 
 const mapDispatchToProps = (dispatch) => ({
   saveEmail: (email) => {

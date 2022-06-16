@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchExchangeThunk } from '../actions';
+import styles from './Form.module.css';
 
 class Form extends Component {
   constructor() {
@@ -62,9 +63,9 @@ class Form extends Component {
     const { value, description, currency, method, tag } = this.state;
     const { currencies } = this.props;
     return (
-      <form>
+      <form className={ styles.container }>
         <label htmlFor="amount">
-          Valor
+          Valor:
           <input
             data-testid="value-input"
             type="number"
@@ -75,7 +76,7 @@ class Form extends Component {
           />
         </label>
         <label htmlFor="description">
-          Descrição
+          Descrição:
           <input
             data-testid="description-input"
             name="description"
@@ -85,7 +86,7 @@ class Form extends Component {
           />
         </label>
         <label htmlFor="currencies">
-          Moeda
+          Moeda:
           <select
             data-testid="currency-input"
             name="currency"
@@ -97,7 +98,7 @@ class Form extends Component {
           </select>
         </label>
         <label htmlFor="payout">
-          Tipo de Pagamento
+          Tipo de Pagamento:
           <select
             data-testid="method-input"
             name="method"
@@ -111,7 +112,7 @@ class Form extends Component {
           </select>
         </label>
         <label htmlFor="category">
-          Categoria
+          Categoria:
           <select
             data-testid="tag-input"
             name="tag"
