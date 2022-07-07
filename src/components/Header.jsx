@@ -23,7 +23,7 @@ class Header extends Component {
         </div>
         <div className={ styles.contentValues }>
           <span data-testid="total-field">{`R$ ${this.updateSumTotal()}` }</span>
-          <span data-testid="header-currency-field">BRL</span>
+          <p data-testid="header-currency-field">BRL</p>
         </div>
       </header>
     );

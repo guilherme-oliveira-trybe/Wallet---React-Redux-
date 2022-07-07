@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { deleteSpent, editSpent } from '../actions';
+import styles from './Spent.module.css';
 
 class Spent extends Component {
   spentDelete = (id) => {
@@ -18,7 +19,7 @@ class Spent extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
+      <table className={ styles.container }>
         <thead>
           <tr>
             <th>Descrição</th>
